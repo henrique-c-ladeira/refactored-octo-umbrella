@@ -1,6 +1,5 @@
 package com.teste;
 
-import android.os.Bundle;
 import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
@@ -48,11 +47,6 @@ public class MainApplication extends Application implements ReactApplication {
     } else {
       return mReactNativeHost;
     }
-  }
-
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(null);
   }
 
   @Override
