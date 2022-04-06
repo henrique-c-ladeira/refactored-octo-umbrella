@@ -11,13 +11,13 @@
 import './src/config/reactotron';
 
 import React from 'react';
-import { Home } from './src/screens/Home';
 import { Provider } from 'react-redux';
 import { store } from './src/redux/store';
+import { Routes } from './src/Routes';
 
 const App = () => (
   <Provider store={store}>
-    <Home />
+    <Routes />
   </Provider>
 );
 

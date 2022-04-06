@@ -16,8 +16,6 @@ export const Home = () => {
 
   return (
     <View style={styles.screen}>
-      <Text style={styles.title}> Pokemons </Text>
-
       {response.isFetching && <ActivityIndicator />}
 
       {response.isSuccess && (
@@ -37,6 +35,5 @@ export const Home = () => {
 
 const styles = StyleSheet.create({
   screen: { justifyContent: 'center', alignItems: 'center' },
-  title: { fontSize: 24, marginBottom: 10 },
   pokemonListContainer: { width: '100%' },
 });

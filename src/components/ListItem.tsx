@@ -19,5 +19,6 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     textTransform: 'capitalize',
     alignSelf: 'flex-start',
+    color: 'black',
   },
 });
