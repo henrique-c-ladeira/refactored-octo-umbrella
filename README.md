@@ -2,6 +2,6 @@
 
 React Native
 
-- React Query
+- Redux Toolkit
 - Reactotron
 
