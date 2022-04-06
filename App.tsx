@@ -11,15 +11,14 @@
 import './src/config/reactotron';
 
 import React from 'react';
-import { QueryClient, QueryClientProvider } from 'react-query';
 import { Home } from './src/screens/Home';
-
-const queryClient = new QueryClient();
+import { Provider } from 'react-redux';
+import { store } from './src/redux/store';
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
+  <Provider store={store}>
     <Home />
-  </QueryClientProvider>
+  </Provider>
 );
 
 export default App;

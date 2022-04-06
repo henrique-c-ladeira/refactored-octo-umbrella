@@ -6,30 +6,31 @@ import {
   Text,
   View,
 } from 'react-native';
-import { useQuery } from 'react-query';
-import { fetchPokemonList } from '../services/fetchPokemonList';
+import { ListItem } from '../components/ListItem';
+import { useGetPokemonListQuery } from '../redux/services/pokemonApi/pokemonApi';
 
 export const Home = () => {
-  const response = useQuery('pokemonList', fetchPokemonList, {});
+  const response = useGetPokemonListQuery(400);
 
-  console.tron.log!(response);
+  console.tron.log!({ response });
 
   return (
     <View style={styles.screen}>
       <Text style={styles.title}> Pokemons </Text>
 
-      {response?.isFetching && <ActivityIndicator />}
+      {response.isFetching && <ActivityIndicator />}
 
-      {response?.isSuccess && (
+      {response.isSuccess && (
         <FlatList
-          data={response.data}
-          renderItem={({ item }) => (
-            <Text style={styles.pokemonText}>{item}</Text>
-          )}
+          style={styles.pokemonListContainer}
+          data={response.data.results.map(item => item.name)}
+          renderItem={({ item }) => <ListItem item={item} />}
         />
       )}
 
-      {response?.isError && <Text>Something unnexpected's happenned.</Text>}
+      {response.isError && (
+        <Text>Something unnexpected's happenned. {response.error}</Text>
+      )}
     </View>
   );
 };
@@ -37,11 +38,5 @@ export const Home = () => {
 const styles = StyleSheet.create({
   screen: { justifyContent: 'center', alignItems: 'center' },
   title: { fontSize: 24, marginBottom: 10 },
-  pokemonText: {
-    fontSize: 16,
-    marginBottom: 5,
-    marginLeft: 20,
-    textTransform: 'capitalize',
-    alignSelf: 'flex-start',
-  },
+  pokemonListContainer: { width: '100%' },
 });
