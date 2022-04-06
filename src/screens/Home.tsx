@@ -7,7 +7,7 @@ import {
   View,
 } from 'react-native';
 import { ListItem } from '../components/ListItem';
-import { useGetPokemonListQuery } from '../redux/services/pokemonApi/pokemonApi';
+import { useGetPokemonListQuery } from '../services/pokemonApi/pokemonApi';
 
 export const Home = () => {
   const response = useGetPokemonListQuery(400);
