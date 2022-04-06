@@ -1,10 +1,16 @@
 import React from 'react';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import {
+  ActivityIndicator,
+  FlatList,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import { useQuery } from 'react-query';
 import { fetchPokemonList } from '../services/fetchPokemonList';
 
 export const Home = () => {
-  const response = useQuery('pokemonList', fetchPokemonList);
+  const response = useQuery('pokemonList', fetchPokemonList, {});
 
   console.tron.log!(response);
 
@@ -12,16 +18,18 @@ export const Home = () => {
     <View style={styles.screen}>
       <Text style={styles.title}> Pokemons </Text>
 
-      {response.isFetching && <ActivityIndicator />}
+      {response?.isFetching && <ActivityIndicator />}
 
-      {response.isSuccess &&
-        response.data.map(item => (
-          <View key={item}>
+      {response?.isSuccess && (
+        <FlatList
+          data={response.data}
+          renderItem={({ item }) => (
             <Text style={styles.pokemonText}>{item}</Text>
-          </View>
-        ))}
+          )}
+        />
+      )}
 
-      {response.isError && <Text>Something unnexpected's happenned.</Text>}
+      {response?.isError && <Text>Something unnexpected's happenned.</Text>}
     </View>
   );
 };
