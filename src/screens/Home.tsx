@@ -1,3 +1,4 @@
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
 import {
   ActivityIndicator,
@@ -7,9 +8,12 @@ import {
   View,
 } from 'react-native';
 import { ListItem } from '../components/ListItem';
+import { RootStackParamList } from '../Routes';
 import { useGetPokemonListQuery } from '../services/pokemonApi/pokemonApi';
 
-export const Home = () => {
+type HomeProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
+
+export const Home: React.FC<HomeProps> = ({ navigation }) => {
   const response = useGetPokemonListQuery(400);
 
   console.tron.log!({ response });
@@ -22,7 +26,14 @@ export const Home = () => {
         <FlatList
           style={styles.pokemonListContainer}
           data={response.data.results.map(item => item.name)}
-          renderItem={({ item }) => <ListItem item={item} />}
+          renderItem={({ item }) => (
+            <ListItem
+              onPress={() =>
+                navigation.navigate('PokemonDetails', { headerTitle: item })
+              }
+              item={item}
+            />
+          )}
         />
       )}
 
