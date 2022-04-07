@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { ListItem } from '../components/ListItem';
 import { RootStackParamList } from '../Routes';
-import { useGetPokemonListQuery } from '../services/pokemonApi/pokemonApi';
+import { useGetPokemonListQuery } from '../services/pokemonApi';
 
 type HomeProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
@@ -37,9 +37,7 @@ export const Home: React.FC<HomeProps> = ({ navigation }) => {
         />
       )}
 
-      {response.isError && (
-        <Text>Something unnexpected's happenned. {response.error}</Text>
-      )}
+      {response.isError && <Text>Something unnexpected's happenned.</Text>}
     </View>
   );
 };
