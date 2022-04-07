@@ -25,7 +25,7 @@ export const Home: React.FC<HomeProps> = ({ navigation }) => {
       {response.isSuccess && (
         <FlatList
           style={styles.pokemonListContainer}
-          data={response.data.results.map(item => item.name)}
+          data={response.data}
           renderItem={({ item }) => (
             <ListItem
               onPress={() =>
