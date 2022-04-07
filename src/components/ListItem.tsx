@@ -1,14 +1,19 @@
 import React, { PureComponent } from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 type ListItemProps = {
   item: string;
+  onPress: () => void;
 };
 
 export class ListItem extends PureComponent<ListItemProps> {
   render() {
-    const { item } = this.props;
-    return <Text style={styles.pokemonText}>{item}</Text>;
+    const { item, onPress } = this.props;
+    return (
+      <TouchableOpacity onPress={onPress}>
+        <Text style={styles.pokemonText}>{item}</Text>
+      </TouchableOpacity>
+    );
   }
 }
 
