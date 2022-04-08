@@ -23,7 +23,10 @@ export const pokemonApi = createApi({
       query: limit => `pokemon?limit=${limit ?? 151}`,
 
       transformResponse: (response: PokemonListResponse) =>
-        response.results.map(item => item.name),
+        response.results.map(item => ({
+          name: item.name,
+          spriteUrl: `https://img.pokemondb.net/sprites/x-y/normal/${item.name}.png`,
+        })),
     }),
 
     getPokemonDetails: builder.query<
