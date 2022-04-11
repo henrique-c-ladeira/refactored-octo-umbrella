@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createSharedElementStackNavigator } from 'react-navigation-shared-element';
 import { Home } from './screens/Home';
 import { PokemonDetails } from './screens/PokemonDetaiils';
 
@@ -11,14 +11,11 @@ export type RootStackParamList = {
   };
 };
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const Stack = createSharedElementStackNavigator<RootStackParamList>();
 
 export const Routes = () => (
   <NavigationContainer>
-    <Stack.Navigator
-      screenOptions={{
-        animation: 'slide_from_right',
-      }}>
+    <Stack.Navigator>
       <Stack.Screen
         name="Home"
         component={Home}
@@ -29,6 +26,17 @@ export const Routes = () => (
         name="PokemonDetails"
         component={PokemonDetails}
         options={({ route }) => ({ title: route.params.headerTitle })}
+        sharedElements={(route, _otherRoute, _showing) => {
+          const { headerTitle } = route.params;
+          return [
+            {
+              id: headerTitle,
+              animation: 'fade',
+              // resize: 'clip'
+              // align: ''left-top'
+            },
+          ];
+        }}
       />
     </Stack.Navigator>
   </NavigationContainer>

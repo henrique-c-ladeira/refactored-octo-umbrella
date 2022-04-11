@@ -1,16 +1,18 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { StackScreenProps } from '@react-navigation/stack';
 import React from 'react';
 import {
   ActivityIndicator,
   Image,
+  ImageBackground,
   ScrollView,
   StyleSheet,
   Text,
 } from 'react-native';
+import { SharedElement } from 'react-navigation-shared-element';
 import { RootStackParamList } from '../Routes';
 import { useGetPokemonDetailsQuery } from '../services/pokemonApi';
 
-type PokemonDetailsProps = NativeStackScreenProps<
+type PokemonDetailsProps = StackScreenProps<
   RootStackParamList,
   'PokemonDetails'
 >;
@@ -24,37 +26,50 @@ export const PokemonDetails: React.FC<PokemonDetailsProps> = ({ route }) => {
     <ScrollView
       style={styles.background}
       contentContainerStyle={styles.screenContainer}>
-      {isFetching && <ActivityIndicator />}
+      {isFetching && (
+        <SharedElement id={pokemonName}>
+          <ActivityIndicator style={styles.image} />
+        </SharedElement>
+      )}
 
       {isSuccess && (
         <>
-          <Image source={{ uri: data.imageUrl }} style={styles.image} />
-          <Text>Type</Text>
+          <SharedElement id={pokemonName}>
+            <ImageBackground
+              source={{ uri: data.imageUrl }}
+              style={styles.image}
+              imageStyle={styles.image}
+            />
+          </SharedElement>
+          <Text style={styles.text}>Type</Text>
           {data.types.map(item => (
-            <Text>{item}</Text>
+            <Text style={styles.text}>{item}</Text>
           ))}
-          <Text>Stats</Text>
+          <Text style={styles.text}>Stats</Text>
           {data.stats.map(item => (
             <>
-              <Text>{item.name}</Text>
-              <Text>{item.value}</Text>
+              <Text style={styles.text}>{item.name}</Text>
+              <Text style={styles.text}>{item.value}</Text>
             </>
           ))}
         </>
       )}
 
-      {isError && <Text>Something unnexpected's happenned. </Text>}
+      {isError && (
+        <Text style={styles.text}>Something unnexpected's happenned. </Text>
+      )}
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  background: {
-    backgroundColor: 'black',
-  },
+  background: {},
   screenContainer: {
     justifyContent: 'center',
     alignItems: 'center',
   },
-  image: { width: '100%', height: 240, resizeMode: 'contain' },
+  image: { width: 240, height: 240, resizeMode: 'contain' },
+  text: {
+    color: 'black',
+  },
 });
