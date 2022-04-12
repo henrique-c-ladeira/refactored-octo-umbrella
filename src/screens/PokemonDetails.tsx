@@ -3,7 +3,6 @@ import React from 'react';
 import {
   ActivityIndicator,
   Image,
-  ImageBackground,
   ScrollView,
   StyleSheet,
   Text,
@@ -18,7 +17,8 @@ type PokemonDetailsProps = StackScreenProps<
 >;
 
 export const PokemonDetails: React.FC<PokemonDetailsProps> = ({ route }) => {
-  const pokemonName = route.params.headerTitle;
+  const pokemon = route.params.pokemon;
+  const pokemonName = pokemon.name;
   const { data, isError, isFetching, isSuccess } =
     useGetPokemonDetailsQuery(pokemonName);
 
@@ -26,21 +26,18 @@ export const PokemonDetails: React.FC<PokemonDetailsProps> = ({ route }) => {
     <ScrollView
       style={styles.background}
       contentContainerStyle={styles.screenContainer}>
+      <SharedElement id={pokemonName}>
+        <Image source={{ uri: pokemon.spriteUrl }} style={styles.image} />
+      </SharedElement>
+
       {isFetching && (
-        <SharedElement id={pokemonName}>
+        <>
           <ActivityIndicator style={styles.image} />
-        </SharedElement>
+        </>
       )}
 
       {isSuccess && (
         <>
-          <SharedElement id={pokemonName}>
-            <ImageBackground
-              source={{ uri: data.imageUrl }}
-              style={styles.image}
-              imageStyle={styles.image}
-            />
-          </SharedElement>
           <Text style={styles.text}>Type</Text>
           {data.types.map(item => (
             <Text style={styles.text}>{item}</Text>

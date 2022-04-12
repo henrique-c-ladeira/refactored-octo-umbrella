@@ -31,7 +31,7 @@ export const Home: React.FC<HomeProps> = ({ navigation }) => {
             <ListItem
               onPress={() =>
                 navigation.navigate('PokemonDetails', {
-                  headerTitle: item.name,
+                  pokemon: item,
                 })
               }
               item={item}

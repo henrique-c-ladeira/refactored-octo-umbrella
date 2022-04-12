@@ -25,7 +25,7 @@ export const pokemonApi = createApi({
       transformResponse: (response: PokemonListResponse) =>
         response.results.map(item => ({
           name: item.name,
-          spriteUrl: `https://img.pokemondb.net/sprites/home/normal/${item.name}.png`,
+          spriteUrl: `https://img.pokemondb.net/sprites/ruby-sapphire/normal/${item.name}.png`,
         })),
     }),
 
