@@ -1,24 +1,22 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createSharedElementStackNavigator } from 'react-navigation-shared-element';
 import { Home } from './screens/Home';
-import { PokemonDetails } from './screens/PokemonDetaiils';
+import { PokemonDetails } from './screens/PokemonDetails';
+import { PokemonTransformedResponse } from './services/pokemonApi/types/getPokemonList';
 
 export type RootStackParamList = {
   Home: undefined;
   PokemonDetails: {
-    headerTitle: string;
+    pokemon: PokemonTransformedResponse;
   };
 };
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const Stack = createSharedElementStackNavigator<RootStackParamList>();
 
 export const Routes = () => (
   <NavigationContainer>
-    <Stack.Navigator
-      screenOptions={{
-        animation: 'slide_from_right',
-      }}>
+    <Stack.Navigator>
       <Stack.Screen
         name="Home"
         component={Home}
@@ -28,7 +26,18 @@ export const Routes = () => (
       <Stack.Screen
         name="PokemonDetails"
         component={PokemonDetails}
-        options={({ route }) => ({ title: route.params.headerTitle })}
+        options={({ route }) => ({ title: route.params.pokemon.name })}
+        sharedElements={(route, _otherRoute, _showing) => {
+          const { name } = route.params.pokemon;
+          return [
+            {
+              id: name,
+              animation: 'fade',
+              // resize: 'clip'
+              // align: ''left-top'
+            },
+          ];
+        }}
       />
     </Stack.Navigator>
   </NavigationContainer>

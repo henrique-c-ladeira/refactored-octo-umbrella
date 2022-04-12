@@ -1,4 +1,4 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { StackScreenProps } from '@react-navigation/stack';
 import React from 'react';
 import {
   ActivityIndicator,
@@ -7,11 +7,12 @@ import {
   Text,
   View,
 } from 'react-native';
+
 import { ListItem } from '../components/ListItem';
 import { RootStackParamList } from '../Routes';
 import { useGetPokemonListQuery } from '../services/pokemonApi';
 
-type HomeProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
+type HomeProps = StackScreenProps<RootStackParamList, 'Home'>;
 
 export const Home: React.FC<HomeProps> = ({ navigation }) => {
   const response = useGetPokemonListQuery(400);
@@ -30,7 +31,7 @@ export const Home: React.FC<HomeProps> = ({ navigation }) => {
             <ListItem
               onPress={() =>
                 navigation.navigate('PokemonDetails', {
-                  headerTitle: item.name,
+                  pokemon: item,
                 })
               }
               item={item}

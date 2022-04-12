@@ -7,7 +7,6 @@
  *
  * @format
  */
-
 import './src/config/reactotron';
 
 import React from 'react';
