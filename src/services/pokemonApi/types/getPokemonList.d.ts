@@ -12,7 +12,9 @@ type Pokemon = {
   url: string;
 };
 
-export type PokemonListTransformedResponse = {
+export type PokemonTransformedResponse = {
   name: string;
   spriteUrl: string;
-}[];
+};
+
+export type PokemonListTransformedResponse = PokemonTransformedResponse[];

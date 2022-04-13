@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { SharedElement } from 'react-navigation-shared-element';
 
 type ListItemProps = {
   item: {
@@ -14,7 +15,9 @@ export class ListItem extends PureComponent<ListItemProps> {
     const { item, onPress } = this.props;
     return (
       <TouchableOpacity onPress={onPress} style={styles.container}>
-        <Image style={styles.image} source={{ uri: item.spriteUrl }} />
+        <SharedElement id={item.name}>
+          <Image style={styles.image} source={{ uri: item.spriteUrl }} />
+        </SharedElement>
         <Text style={styles.pokemonText}>{item.name}</Text>
       </TouchableOpacity>
     );
