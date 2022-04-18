@@ -7,7 +7,7 @@ export default appSchema({
       name: 'pokemon',
       columns: [
         { name: 'name', type: 'string' },
-        { name: 'spriteUrl', type: 'string' },
+        { name: 'sprite_url', type: 'string' },
       ],
     }),
   ],
